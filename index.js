@@ -22,7 +22,11 @@ function generateTrackingId() {
 // firebase  related
 const admin = require("firebase-admin");
 
-const serviceAccount = require("./zap-shift-delivery-firebase-admin-sdk.json");
+// const serviceAccount = require("./zap-shift-delivery-firebase-admin-sdk.json");
+// // const serviceAccount = require("./firebase-admin-key.json");
+
+const decoded = Buffer.from(process.env.FB_SERVICE_KEY, 'base64').toString('utf8')
+const serviceAccount = JSON.parse(decoded);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -552,10 +556,10 @@ app.get('/trackings/:trackingId/logs',async (req,res)=>{
 })
 
 
-    await client.db("admin").command({ ping: 1 });
-    console.log(
-      "Pinged your deployment. You successfully connected to MongoDB!"
-    );
+    // await client.db("admin").command({ ping: 1 });
+    // console.log(
+    //   "Pinged your deployment. You successfully connected to MongoDB!"
+    // );
   } finally {
   }
 }
